@@ -1,6 +1,8 @@
 import { Stack } from '@mui/material'
 import './globals.css'
 import { Inter } from 'next/font/google'
+import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,7 +21,9 @@ export default function RootLayout({ children }) {
           minHeight='100vh'
           bgcolor='#F5F5F5'
         >
+          <Navbar />
           {children}
+          <Footer />
         </Stack>
       </body>
     </html>
