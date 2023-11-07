@@ -10,12 +10,20 @@ import {
   Stack,
   Typography,
 } from '@mui/material'
+import RegisterEmployeeModal from './RegisterEmployeeModal'
+import { useState } from 'react'
 
 const Navbar = () => {
   const size = ResponsiveSize()
+  const [isOpen, setIsOpen] = useState(false)
+
+  const handleModal = () => {
+    setIsOpen((prev) => !prev)
+  }
 
   return (
     <Box>
+      <RegisterEmployeeModal handleModal={handleModal} open={isOpen} />
       <Container
         maxWidth='lg'
         sx={{ padding: { xs: '10px 20px', md: '20px 20px' } }}
@@ -33,7 +41,9 @@ const Navbar = () => {
               <PersonAdd />
             </IconButton>
           ) : (
-            <Button startIcon={<PersonAdd />}>Register Employee</Button>
+            <Button startIcon={<PersonAdd />} onClick={handleModal}>
+              Register Employee
+            </Button>
           )}
         </Stack>
       </Container>
