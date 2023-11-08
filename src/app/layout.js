@@ -6,6 +6,7 @@ import Footer from '@/components/Footer'
 import { Flip, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { EmployeeProvider } from '@/providers/employee'
+import { ExpenseProvider } from '@/providers/expenses'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,35 +20,37 @@ export default function RootLayout({ children }) {
     <html lang='en'>
       <body className={inter.className}>
         <EmployeeProvider>
-          <ToastContainer
-            position='top-right'
-            autoClose={2000}
-            limit={1}
-            hideProgressBar={true}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss={false}
-            draggable
-            pauseOnHover={false}
-            theme='light'
-            transition={Flip}
-          />
-          <Stack
-            direction='column'
-            justifyContent='space-between'
-            minHeight='100vh'
-            bgcolor='#F5F5F5'
-          >
-            <Navbar />
-            <Box
-              minHeight='80vh'
-              sx={{ padding: { xs: '20px 0', sm: '60px 0' } }}
+          <ExpenseProvider>
+            <ToastContainer
+              position='top-right'
+              autoClose={2000}
+              limit={1}
+              hideProgressBar={true}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss={false}
+              draggable
+              pauseOnHover={false}
+              theme='light'
+              transition={Flip}
+            />
+            <Stack
+              direction='column'
+              justifyContent='space-between'
+              minHeight='100vh'
+              bgcolor='#F5F5F5'
             >
-              {children}
-            </Box>
-            <Footer />
-          </Stack>
+              <Navbar />
+              <Box
+                minHeight='80vh'
+                sx={{ padding: { xs: '20px 0', sm: '60px 0' } }}
+              >
+                {children}
+              </Box>
+              <Footer />
+            </Stack>
+          </ExpenseProvider>
         </EmployeeProvider>
       </body>
     </html>
