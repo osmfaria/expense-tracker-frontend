@@ -7,6 +7,7 @@ const ExpenseContext = createContext()
 
 const ExpenseProvider = ({ children }) => {
   const [expenses, setExpenses] = useState()
+  const [expensesByWeek, setExpensesByWeek] = useState()
   const [isLoading, setIsLoading] = useState(false)
 
   const getExpenses = async (userId, year) => {
@@ -17,8 +18,17 @@ const ExpenseProvider = ({ children }) => {
       .finally(() => setIsLoading(false))
   }
 
+  const getExpensesByWeek = async () => {
+    setIsLoading(true)
+    await Api.get(`/expenses/week/${userId}/${year}`)
+    .then((res) => setExpensesByWeek(res.data))
+    .catch((_) => toast.error('Something went wrong... Try again later'))
+    .finally(() => setIsLoading(false))
+}
+  }
+
   return (
-    <ExpenseContext.Provider value={{ expenses, getExpenses }}>
+    <ExpenseContext.Provider value={{ expenses, getExpenses, expensesByWeek, getExpensesByWeek }}>
       {children}
     </ExpenseContext.Provider>
   )
