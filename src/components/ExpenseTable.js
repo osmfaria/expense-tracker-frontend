@@ -10,7 +10,7 @@ import {
   Typography,
 } from '@mui/material'
 import React from 'react'
-import { formateCurrency, formateDate } from '@/utils/helpers'
+import { formateCurrency, formatDate } from '@/utils/helpers'
 
 const ExpenseTable = () => {
   const data = [
@@ -65,7 +65,7 @@ const ExpenseTable = () => {
           {data.map((expense) => (
             <TableRow key={expense.id}>
               <TableCell sx={{ whiteSpace: 'nowrap' }}>
-                {formateDate(expense.date)}
+                {formatDate(expense.date)}
               </TableCell>
               <TableCell sx={{ whiteSpace: 'nowrap' }}>
                 {expense.description}

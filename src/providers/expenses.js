@@ -14,6 +14,7 @@ export const ExpenseProvider = ({ children }) => {
 
   const createExpense = async (data) => {
     setIsLoading(true)
+
     await Api.post(`/expenses/`, data)
       .then((_) => toast.success('Expense recorded'))
       .catch((_) => toast.error('Something went wrong... Try again later'))
@@ -80,4 +81,4 @@ export const ExpenseProvider = ({ children }) => {
   )
 }
 
-export const useExpense = useContext(ExpenseContext)
+export const useExpense = () => useContext(ExpenseContext)
