@@ -47,7 +47,7 @@ const Employee = () => {
   return (
     <Card
       sx={{
-        width: { lg: '50%' },
+        width: '100%',
         maxWidth: '500px',
         mb: '20px',
         minHeight: { xs: '175px' },
