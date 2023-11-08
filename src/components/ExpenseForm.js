@@ -83,7 +83,7 @@ const ExpenseForm = () => {
             <Form>
               <Box
                 sx={{
-                  padding: { xs: '15px 15px', md: '25px 30px' },
+                  padding: { xs: '20px 15px', md: '25px 30px' },
                 }}
               >
                 <Grid
