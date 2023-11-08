@@ -19,17 +19,18 @@ import { Form, Formik } from 'formik'
 import { LoadingButton } from '@mui/lab'
 import ResponsiveSize from '@/utils/responsiveSize'
 import * as yup from 'yup'
-import Api from '../../services/api'
-import { toast } from 'react-toastify'
-import { useEffect, useState } from 'react'
+import { useExpense } from '@/providers/expenses'
+import { useEmployee } from '@/providers/employee'
+import { formatDate } from '@/utils/helpers'
 
 const ExpenseForm = () => {
   const size = ResponsiveSize()
+  const { createExpense } = useExpense()
+  const { activeEmployee } = useEmployee()
 
   const handlePriceChange = (event, formik) => {
     const inputValue = event.target.value
     if (inputValue) {
-      console.log('oi')
       const formattedValue = parseFloat(inputValue).toFixed(2)
       formik.setFieldValue('amount', formattedValue)
     }
@@ -55,14 +56,17 @@ const ExpenseForm = () => {
   })
 
   const onSubmit = async (data, formik) => {
-    // await Api.post('/expenses', data)
-    //   .then((_) => toast.success('Expense added'))
-    //   .catch((_) => toast.error('Something went wrong... Try again later'))
-    //   .finally(() => formik.setSubmitting(false))
+    const formatedDate = formatDate(data.date)
 
-    console.log(data)
+    const updatedData = {
+      ...data,
+      date: formatedDate,
+      userId: activeEmployee,
+    }
 
-    // formik.resetForm()
+    await createExpense(updatedData)
+
+    formik.resetForm()
   }
 
   return (
