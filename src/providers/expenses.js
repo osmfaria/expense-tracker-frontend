@@ -14,7 +14,7 @@ export const ExpenseProvider = ({ children }) => {
 
   const createExpense = async (data) => {
     setIsLoading(true)
-    await Api.get(`/expenses/`, data)
+    await Api.post(`/expenses/`, data)
       .then((_) => toast.success('Expense recorded'))
       .catch((_) => toast.error('Something went wrong... Try again later'))
       .finally(() => setIsLoading(false))
@@ -52,6 +52,14 @@ export const ExpenseProvider = ({ children }) => {
       .finally(() => setIsLoading(false))
   }
 
+  const updateExpense = async (expenseId, data) => {
+    setIsLoading(true)
+    await Api.patch(`/expenses/${expenseId}`, data)
+      .then((_) => toast.success('Expense updated'))
+      .catch((_) => toast.error('Something went wrong... Try again later'))
+      .finally(() => setIsLoading(false))
+  }
+
   return (
     <ExpenseContext.Provider
       value={{
@@ -63,6 +71,7 @@ export const ExpenseProvider = ({ children }) => {
         getYearsWithExpenses,
         deleteExpense,
         createExpense,
+        updateExpense,
         isLoading,
       }}
     >
