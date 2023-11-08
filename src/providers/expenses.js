@@ -12,6 +12,14 @@ export const ExpenseProvider = ({ children }) => {
   const [expenseYears, setExpensesYears] = useState()
   const [isLoading, setIsLoading] = useState(false)
 
+  const createExpense = async (data) => {
+    setIsLoading(true)
+    await Api.get(`/expenses/`, data)
+      .then((_) => toast.success('Expense recorded'))
+      .catch((_) => toast.error('Something went wrong... Try again later'))
+      .finally(() => setIsLoading(false))
+  }
+
   const getExpenses = async (userId, year) => {
     setIsLoading(true)
     await Api.get(`/expenses/${userId}/${year}`)
@@ -53,6 +61,8 @@ export const ExpenseProvider = ({ children }) => {
         getExpensesByWeek,
         expenseYears,
         getYearsWithExpenses,
+        deleteExpense,
+        createExpense,
         isLoading,
       }}
     >
