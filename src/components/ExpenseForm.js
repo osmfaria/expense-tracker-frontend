@@ -75,7 +75,6 @@ const ExpenseForm = () => {
         <>
           <Card
             sx={{
-              width: { lg: '50%' },
               maxWidth: '500px',
             }}
           >
