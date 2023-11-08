@@ -28,10 +28,18 @@ export const ExpenseProvider = ({ children }) => {
       .finally(() => setIsLoading(false))
   }
 
-  const getYearsWithExpenses = async ({ userId }) => {
+  const getYearsWithExpenses = async (userId) => {
     setIsLoading(true)
     await Api.get(`/expenses/${userId}/recorded-years`)
       .then((res) => setExpensesYears(res.data))
+      .catch((_) => toast.error('Something went wrong... Try again later'))
+      .finally(() => setIsLoading(false))
+  }
+
+  const deleteExpense = async (expenseId) => {
+    setIsLoading(true)
+    await Api.delete(`/expenses/${expenseId}`)
+      .then((_) => toast.success('Expense deleted'))
       .catch((_) => toast.error('Something went wrong... Try again later'))
       .finally(() => setIsLoading(false))
   }
