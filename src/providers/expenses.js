@@ -8,6 +8,7 @@ import dayjs from 'dayjs'
 const ExpenseContext = createContext()
 
 export const ExpenseProvider = ({ children }) => {
+  const [activeYear, setActiveYear] = useState('')
   const [expenses, setExpenses] = useState([])
   const [expensesByWeek, setExpensesByWeek] = useState([])
   const [expenseYears, setExpensesYears] = useState([])
@@ -16,6 +17,10 @@ export const ExpenseProvider = ({ children }) => {
 
   const handleView = () => {
     setView((prev) => (prev === 'monthly' ? 'weekly' : 'monthly'))
+  }
+
+  const handleActiveYear = (year) => {
+    setActiveYear(year)
   }
 
   const createExpense = async (data) => {
@@ -77,10 +82,12 @@ export const ExpenseProvider = ({ children }) => {
       .finally(() => setIsLoading(false))
   }
 
-  const onExpenseCreation = async (userId, year) => {
+  const onExpenseCreation = async (userId, expenseYear, activeYear) => {
     getYearsWithExpenses(userId)
-    getExpenses(userId, year)
-    getExpensesByWeek(userId, year)
+    if (expenseYear == activeYear || !activeYear) {
+      getExpensesByWeek(userId, expenseYear)
+      getExpenses(userId, expenseYear)
+    }
   }
 
   const onExpenseDelete = async (userId, expenseId, date) => {
@@ -109,6 +116,8 @@ export const ExpenseProvider = ({ children }) => {
         onExpenseCreation,
         onExpenseDelete,
         setExpenses,
+        activeYear,
+        handleActiveYear,
       }}
     >
       {children}
