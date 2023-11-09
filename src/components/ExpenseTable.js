@@ -12,9 +12,20 @@ import {
 import React from 'react'
 import { formateCurrency, formatDate } from '@/utils/helpers'
 import { useExpense } from '@/providers/expenses'
+import { useEmployee } from '@/providers/employee'
+import DeleteButton from './DeleteButton'
 
 const ExpenseTable = () => {
-  const { expenses } = useExpense()
+  const { expenses, deleteExpense, onExpenseDelete, isLoading } = useExpense()
+  const { activeEmployee } = useEmployee()
+
+  const handleDelete = async (expenseId, expenseDate) => {
+    const res = await deleteExpense(expenseId)
+
+    if (res.status === 204) {
+      onExpenseDelete(activeEmployee, expenseId, expenseDate)
+    }
+  }
 
   return (
     <TableContainer
@@ -42,6 +53,7 @@ const ExpenseTable = () => {
                 Amount
               </Typography>{' '}
             </TableCell>
+            <TableCell></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -55,6 +67,12 @@ const ExpenseTable = () => {
               </TableCell>
               <TableCell sx={{ whiteSpace: 'nowrap' }}>
                 {formateCurrency(expense.amount)}
+              </TableCell>
+              <TableCell>
+                <DeleteButton
+                  handleDelete={() => handleDelete(expense.id, expense.date)}
+                  isLoading={isLoading}
+                />
               </TableCell>
             </TableRow>
           ))}
