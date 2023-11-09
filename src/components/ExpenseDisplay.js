@@ -1,19 +1,36 @@
 'use client'
 
-import { Avatar, Box, Card, Divider, Stack, Typography } from '@mui/material'
+import {
+  Box,
+  Card,
+  Divider,
+  LinearProgress,
+  Stack,
+  Typography,
+} from '@mui/material'
 import React from 'react'
-import { stringAvatar } from '@/utils/helpers'
 import ExpenseTable from './ExpenseTable'
+import { useExpense } from '@/providers/expenses'
+import ExpenseWeeklyTable from './ExpenseWeeklyTable'
+import Total from './Total'
+import CustomAvatar from './CustomAvatar'
+import { useEmployee } from '@/providers/employee'
+import NoData from './NoData'
 
 const ExpenseDisplay = () => {
+  const { expenses, expensesByWeek, view, isLoading } = useExpense()
+  const { activeEmployee } = useEmployee()
+
   return (
     <Card
       sx={{
         width: '100%',
-        maxWidth: { xs: '500px', lg: '100%' },
-        flexGrow: 1,
+        height: '528px',
       }}
     >
+      <Box style={{ height: '4px', overflowY: 'hidden' }}>
+        {isLoading && <LinearProgress />}
+      </Box>
       <Stack
         direction='row'
         justifyContent='space-between'
@@ -21,25 +38,17 @@ const ExpenseDisplay = () => {
         sx={{
           padding: { xs: '20px 15px', md: '15px 30px' },
         }}
+        minHeight='74px'
       >
         <Typography
           variant='h5'
-          fontWeight={600}
+          color='primary'
           sx={{ fontSize: { xs: '1rem', sm: '1.2rem' } }}
         >
-          Expense summary
+          Expenses summary
         </Typography>
-        <Stack direction='row' alignItems='center' gap={1}>
-          <Avatar
-            {...stringAvatar('Odin Allfather')}
-            sx={{
-              bgcolor: 'secondary',
-              height: { xs: '34px', sm: '44px' },
-              width: { xs: '34px', sm: '44px' },
-            }}
-          />
-          <Typography variant='body2'>Odin Allfather</Typography>
-        </Stack>
+
+        {activeEmployee && <CustomAvatar />}
       </Stack>
       <Divider />
       <Box
@@ -47,7 +56,11 @@ const ExpenseDisplay = () => {
           padding: { xs: '20px 15px', md: '25px 30px' },
         }}
       >
-        <ExpenseTable />
+        {expenses.length > 0 && <Total />}
+        {view === 'weekly'
+          ? expensesByWeek.length > 0 && <ExpenseWeeklyTable />
+          : expenses.length > 0 && <ExpenseTable />}
+        {!isLoading && !expensesByWeek.length && !expenses.length && <NoData />}
       </Box>
     </Card>
   )
