@@ -25,7 +25,7 @@ import { formatDate } from '@/utils/helpers'
 
 const ExpenseForm = () => {
   const size = ResponsiveSize()
-  const { createExpense } = useExpense()
+  const { createExpense, onExpenseCreation } = useExpense()
   const { activeEmployee } = useEmployee()
 
   const handlePriceChange = (event, formik) => {
@@ -56,15 +56,19 @@ const ExpenseForm = () => {
   })
 
   const onSubmit = async (data, formik) => {
-    const formatedDate = formatDate(data.date)
+    const expenseDate = formatDate(data.date)
+    const expenseYear = dayjs(expenseDate, 'YYYY/MM/DD').year()
 
     const updatedData = {
       ...data,
-      date: formatedDate,
+      date: expenseDate,
       userId: activeEmployee,
     }
 
-    await createExpense(updatedData)
+    const res = await createExpense(updatedData)
+    if (res.status === 201) {
+      await onExpenseCreation(activeEmployee, expenseYear)
+    }
 
     formik.resetForm()
   }
@@ -82,13 +86,23 @@ const ExpenseForm = () => {
               maxWidth: '500px',
             }}
           >
-            {formik.isSubmitting && <LinearProgress />}
+            <Box style={{ height: '4px', overflowY: 'hidden' }}>
+              {formik.isSubmitting && <LinearProgress />}
+            </Box>
             <Form>
               <Box
                 sx={{
                   padding: { xs: '20px 15px', md: '25px 30px' },
                 }}
               >
+                <Typography
+                  variant='h5'
+                  color='primary'
+                  mb='20px'
+                  sx={{ fontSize: { xs: '1rem', sm: '1.2rem' } }}
+                >
+                  Record Expenses
+                </Typography>
                 <Grid
                   container
                   alignItems='center'
