@@ -2,6 +2,7 @@ import { Box, Container, Stack } from '@mui/material'
 import ExpenseForm from '@/components/ExpenseForm'
 import Employee from '@/components/Employee'
 import ExpenseDisplay from '@/components/ExpenseDisplay'
+import ExpenseFilters from '@/components/ExpenseFilters'
 
 export default function Home() {
   return (
@@ -17,7 +18,10 @@ export default function Home() {
           <Employee />
           <ExpenseForm />
         </Box>
-        <ExpenseDisplay />
+        <Box sx={{ maxWidth: { xs: '500px', lg: '100%' }, width: '100%' }}>
+          <ExpenseFilters />
+          <ExpenseDisplay />
+        </Box>
       </Stack>
     </Container>
   )
