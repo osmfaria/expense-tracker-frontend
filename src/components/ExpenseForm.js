@@ -25,7 +25,7 @@ import { formatDate } from '@/utils/helpers'
 
 const ExpenseForm = () => {
   const size = ResponsiveSize()
-  const { createExpense, onExpenseCreation } = useExpense()
+  const { createExpense, onExpenseCreation, activeYear } = useExpense()
   const { activeEmployee } = useEmployee()
 
   const handlePriceChange = (event, formik) => {
@@ -67,7 +67,7 @@ const ExpenseForm = () => {
 
     const res = await createExpense(updatedData)
     if (res.status === 201) {
-      await onExpenseCreation(activeEmployee, expenseYear)
+      await onExpenseCreation(activeEmployee, expenseYear, activeYear)
     }
 
     formik.resetForm()

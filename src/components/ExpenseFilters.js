@@ -10,11 +10,10 @@ import {
 } from '@mui/material'
 import YearsDropDown from './YearsDropDown'
 import { useExpense } from '@/providers/expenses'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useEmployee } from '@/providers/employee'
 
 const ExpenseFilters = () => {
-  const [activeYear, setActiveYear] = useState('')
   const {
     getYearsWithExpenses,
     getExpensesByWeek,
@@ -23,11 +22,13 @@ const ExpenseFilters = () => {
     view,
     handleView,
     isLoading,
+    activeYear,
+    handleActiveYear,
   } = useExpense()
   const { activeEmployee } = useEmployee()
 
   const handleChangeYears = (event) => {
-    setActiveYear(event.target.value)
+    handleActiveYear(event.target.value)
   }
 
   useEffect(() => {
@@ -38,7 +39,7 @@ const ExpenseFilters = () => {
 
   useEffect(() => {
     if (expenseYears && expenseYears.length > 0) {
-      setActiveYear(expenseYears[0].year)
+      handleActiveYear(expenseYears[0].year)
     }
   }, [expenseYears])
 
