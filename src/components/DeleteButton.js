@@ -1,11 +1,10 @@
 'use client'
 
-import { Delete } from '@mui/icons-material'
-import { LoadingButton } from '@mui/lab'
+import { Check, Delete } from '@mui/icons-material'
 import { ClickAwayListener, IconButton, Tooltip } from '@mui/material'
 import React, { useState } from 'react'
 
-const DeleteButton = ({ handleDelete, isLoading }) => {
+const DeleteButton = ({ handleDelete }) => {
   const [open, setOpen] = useState()
 
   const handleConfirmation = async () => {
@@ -21,17 +20,11 @@ const DeleteButton = ({ handleDelete, isLoading }) => {
     <>
       {open ? (
         <ClickAwayListener onClickAway={handleClick}>
-          <LoadingButton
-            variant='text'
-            color='error'
-            loading={isLoading}
-            loadingPosition='center'
-            onClick={handleConfirmation}
-            size='small'
-            sx={{ height: '34px' }}
-          >
-            confirm
-          </LoadingButton>
+          <Tooltip title='Confirm | Delete'>
+            <IconButton onClick={handleConfirmation} size='small' color='error'>
+              <Check />
+            </IconButton>
+          </Tooltip>
         </ClickAwayListener>
       ) : (
         <Tooltip title='Remove'>
