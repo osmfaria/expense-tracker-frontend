@@ -15,9 +15,11 @@ import * as yup from 'yup'
 import { Formik, Form } from 'formik'
 import Api from '../../services/api'
 import { toast } from 'react-toastify'
+import { useEmployee } from '@/providers/employee'
 
 const RegisterEmployeeModal = ({ handleModal, open }) => {
   const size = ResponsiveSize()
+  const { getEmployees } = useEmployee()
 
   const inistialValues = {
     name: '',
@@ -40,10 +42,17 @@ const RegisterEmployeeModal = ({ handleModal, open }) => {
   })
 
   const onSubmit = async (data, formik) => {
-    await Api.post('/users', data)
-      .then((_) => toast.success('Employee registered'))
+    const response = await Api.post('/users', data)
+      .then((res) => {
+        toast.success('Employee registered')
+        return res
+      })
       .catch((_) => toast.error('Something went wrong... Try again later'))
       .finally(() => formik.setSubmitting(false))
+
+    if (response.status === 201) {
+      getEmployees()
+    }
 
     formik.resetForm()
     handleModal()

@@ -3,6 +3,7 @@
 import { createContext, useContext, useState } from 'react'
 import Api from '../../services/api'
 import { toast } from 'react-toastify'
+import dayjs from 'dayjs'
 
 const ExpenseContext = createContext()
 
@@ -57,10 +58,15 @@ export const ExpenseProvider = ({ children }) => {
 
   const deleteExpense = async (expenseId) => {
     setIsLoading(true)
-    await Api.delete(`/expenses/${expenseId}`)
-      .then((_) => toast.success('Expense deleted'))
+    const response = await Api.delete(`/expenses/${expenseId}`)
+      .then((res) => {
+        toast.success('Expense deleted')
+        return res
+      })
       .catch((_) => toast.error('Something went wrong... Try again later'))
       .finally(() => setIsLoading(false))
+
+    return response
   }
 
   const updateExpense = async (expenseId, data) => {
@@ -75,6 +81,14 @@ export const ExpenseProvider = ({ children }) => {
     getYearsWithExpenses(userId)
     getExpenses(userId, year)
     getExpensesByWeek(userId, year)
+  }
+
+  const onExpenseDelete = async (userId, expenseId, date) => {
+    const updatedExpenses = expenses.filter((elem) => elem.id !== expenseId)
+    setExpenses(updatedExpenses)
+
+    const expenseYear = dayjs(date, 'YYYY/MM/DD').year()
+    getExpensesByWeek(userId, expenseYear)
   }
 
   return (
@@ -93,6 +107,8 @@ export const ExpenseProvider = ({ children }) => {
         view,
         handleView,
         onExpenseCreation,
+        onExpenseDelete,
+        setExpenses,
       }}
     >
       {children}
