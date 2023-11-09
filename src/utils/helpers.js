@@ -9,7 +9,15 @@ export const formateCurrency = (value) =>
   })
 
 export const stringAvatar = (name) => {
+  const nameArray = name.split(' ')
+
+  if (nameArray.length > 1) {
+    return {
+      children: `${nameArray[0][0]}${nameArray[1][0]}`,
+    }
+  }
+
   return {
-    children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
+    children: `${nameArray[0][0]}`,
   }
 }
