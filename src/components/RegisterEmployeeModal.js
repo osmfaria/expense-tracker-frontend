@@ -2,6 +2,7 @@ import ResponsiveSize from '@/utils/responsiveSize'
 import { Clear, HowToReg } from '@mui/icons-material'
 import { LoadingButton } from '@mui/lab'
 import {
+  Box,
   Button,
   Dialog,
   DialogActions,
@@ -56,7 +57,9 @@ const RegisterEmployeeModal = ({ handleModal, open }) => {
     >
       {(formik) => (
         <Dialog open={open} onClose={handleModal}>
-          {formik.isSubmitting && <LinearProgress />}
+          <Box style={{ height: '4px', overflowY: 'hidden' }}>
+            {formik.isSubmitting && <LinearProgress />}
+          </Box>
           <DialogTitle mt='10px'>Register Employee</DialogTitle>
           <Form>
             <Stack
