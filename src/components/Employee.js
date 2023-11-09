@@ -12,6 +12,7 @@ import {
   Card,
   LinearProgress,
   Typography,
+  InputLabel,
 } from '@mui/material'
 import { useEffect, useMemo } from 'react'
 
@@ -53,7 +54,9 @@ const Employee = () => {
         minHeight: { xs: '175px' },
       }}
     >
-      {isLoading && <LinearProgress />}
+      <Box style={{ height: '4px', overflowY: 'hidden' }}>
+        {isLoading && <LinearProgress />}
+      </Box>
       <Box
         sx={{
           padding: { xs: '20px 15px', md: '25px 30px' },
@@ -61,15 +64,15 @@ const Employee = () => {
       >
         <Typography
           variant='h5'
-          color='GrayText'
+          color='primary'
           mb='20px'
           sx={{ fontSize: { xs: '1rem', sm: '1.2rem' } }}
         >
           Start by selecting an employee:
         </Typography>
-        <FormControl fullWidth>
-          {!isLoading && (
-            <>
+        {!isLoading && (
+          <>
+            <FormControl fullWidth>
               <Select
                 id='select-employee'
                 value={activeEmployee}
@@ -89,9 +92,9 @@ const Employee = () => {
                   'Select an employee'
                 )}
               </FormHelperText>
-            </>
-          )}
-        </FormControl>
+            </FormControl>
+          </>
+        )}
       </Box>
     </Card>
   )
