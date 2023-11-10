@@ -24,6 +24,7 @@ const ExpenseFilters = () => {
     isLoading,
     activeYear,
     handleActiveYear,
+    expensesByWeek,
   } = useExpense()
   const { activeEmployee } = useEmployee()
 
@@ -33,6 +34,7 @@ const ExpenseFilters = () => {
 
   useEffect(() => {
     if (activeEmployee) {
+      handleActiveYear('')
       getYearsWithExpenses(activeEmployee)
     }
   }, [activeEmployee])
@@ -81,12 +83,13 @@ const ExpenseFilters = () => {
             handleChange={handleChangeYears}
             disabled={!expenseYears.length || isLoading}
             list={expenseYears}
+            isLoading={isLoading}
           />
           <Stack direction='row' alignItems='center' gap={'2px'} width='50%'>
             <Switch
               checked={view === 'weekly'}
               onChange={handleView}
-              disabled={!activeEmployee || isLoading}
+              disabled={!activeEmployee || isLoading || !expensesByWeek.length}
               color='secondary'
             />
             <Typography
