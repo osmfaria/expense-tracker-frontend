@@ -25,7 +25,7 @@ import { formatDate } from '@/utils/helpers'
 
 const ExpenseForm = () => {
   const size = ResponsiveSize()
-  const { createExpense, onExpenseCreation, activeYear } = useExpense()
+  const { createExpense, onExpenseChange, activeYear } = useExpense()
   const { activeEmployee } = useEmployee()
 
   const handlePriceChange = (event, formik) => {
@@ -56,7 +56,7 @@ const ExpenseForm = () => {
   })
 
   const onSubmit = async (data, formik) => {
-    const expenseDate = formatDate(data.date)
+    const expenseDate = dayjs(data.date).format('YYYY-MM-DD')
     const expenseYear = dayjs(expenseDate, 'YYYY/MM/DD').year()
 
     const updatedData = {
@@ -67,7 +67,7 @@ const ExpenseForm = () => {
 
     const res = await createExpense(updatedData)
     if (res.status === 201) {
-      await onExpenseCreation(activeEmployee, expenseYear, activeYear)
+      await onExpenseChange(activeEmployee, expenseYear, activeYear)
     }
 
     formik.resetForm()
@@ -120,6 +120,7 @@ const ExpenseForm = () => {
                           formik.setFieldValue('date', newValue)
                         }
                         maxDate={dayjs(new Date())}
+                        format='YYYY/MM/DD'
                         slotProps={{
                           textField: {
                             helperText: formik.touched.date && (
