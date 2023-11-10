@@ -8,8 +8,8 @@ This app is a practical tool for managing expenses, designed with Next.js and Ma
 <img src="./public/app-design.png" />
 
 💭 Features:
-- Retrieve years with recorded expenses and populate a dropdown list for each employee. \
-- Enable filtering by year and grouping expenses by week. \
+- Retrieve years with recorded expenses and populate a dropdown list for each employee. 
+- Enable filtering by year and grouping expenses by week. 
 
 ## 📋 Instalation guide
 
