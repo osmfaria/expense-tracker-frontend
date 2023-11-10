@@ -7,8 +7,7 @@ This app is a practical tool for managing expenses, designed with Next.js and Ma
 > Check the deployed [app](https://expense-tracker-osm.vercel.app/).
 <img src="./public/app-design.png" />
 
-💭 Features:\
-\
+💭 Features:
 - Retrieve years with recorded expenses and populate a dropdown list for each employee. \
 - Enable filtering by year and grouping expenses by week. \
 
