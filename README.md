@@ -24,4 +24,4 @@ This app is a practical tool for managing expenses, designed with Next.js and Ma
 ## 🔗 Links
 
 - App backend [repo](https://github.com/osmfaria/expense-tracker-backend);
-- API [documentation](https://osm-expense-tracker-f0320512353f.herokuapp.com/api-docs/) 
+- API deployed [documentation](https://osm-expense-tracker-f0320512353f.herokuapp.com/api-docs/) 
