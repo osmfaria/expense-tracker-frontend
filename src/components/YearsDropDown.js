@@ -2,6 +2,7 @@
 
 import ResponsiveSize from '@/utils/responsiveSize'
 import {
+  CircularProgress,
   FormControl,
   FormHelperText,
   InputLabel,
@@ -9,7 +10,14 @@ import {
   Select,
 } from '@mui/material'
 
-const YearsDropDown = ({ label, value, handleChange, disabled, list }) => {
+const YearsDropDown = ({
+  label,
+  value,
+  handleChange,
+  disabled,
+  list,
+  isLoading,
+}) => {
   const size = ResponsiveSize()
 
   return (
@@ -19,20 +27,26 @@ const YearsDropDown = ({ label, value, handleChange, disabled, list }) => {
         labelId='select-year-label'
         id='select-year'
         label={label}
-        value={value}
+        value={list.length > 0 ? value : ''}
         onChange={handleChange}
         disabled={disabled}
         size={size}
       >
+        {isLoading && (
+          <MenuItem
+            value={''}
+            sx={{ display: 'flex', justifyContent: 'center' }}
+          >
+            <CircularProgress />
+          </MenuItem>
+        )}
         {list.map((item) => (
-          <MenuItem value={item.year} key={item.year}>
+          <MenuItem value={item.year} key={Math.random()}>
             {`${item.year}`}
           </MenuItem>
         ))}
       </Select>
-      <FormHelperText>
-        {disabled ? 'Select an employee first' : 'Select a year'}
-      </FormHelperText>
+      <FormHelperText>Select a year</FormHelperText>
     </FormControl>
   )
 }
