@@ -1,34 +1,39 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+[![GitHub package.json version](https://img.shields.io/github/package-json/v/osmfaria/expense-tracker-frontend)](https://img.shields.io/github/package-json/v/osmfaria/expense-tracker-frontend)
+ 
+#  Expense Tracker
 
-## Getting Started
+This app is a practical tool for managing expenses, designed with Next.js and Material-UI. Allow user registration and expenses management.
 
-First, run the development server:
+> Check the deployed [app](https://ninjasports.vercel.app/).
+<img src="./public/app-design.png" />
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+💭 Cool features:\
+\
+📍 Local Facility Finder: Discover sports facilities in your vicinity. \
+⏰ Booking System: Reserve a specific time slot based on availability. \
+🏢 Business Integration: Own a sports facility? Add, manage, and oversee your facility bookings right from the platform. \
+:heavy_check_mark: Utilized NextAuth for authentication, integrated with backend requests, and managed user sessions. \
+:heavy_check_mark: Integrated Google's address autocomplete to determine time zones, aiding the backend in providing available courts.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📋 Instalation guide
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- Clone this repo;
+- Check the env file for settings up the variables required. (Note that in order to get the application running 2 different google maps api keys are required);
+- On the root folder execute `npm run dev`;
+- Check the applicaton running on `http://localhost:3000/`
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+## 💻 Tech stack
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+  <img src="https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" /> <img src="https://img.shields.io/badge/Material--UI-0081CB?style=for-the-badge&logo=material-ui&logoColor=white" /> <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" /> 
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+  ## :telescope: Upcoming updates
 
-## Deploy on Vercel
+- [ ] Include payment options feature;
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## 🔗 Links
+
+- App backend [repo](https://github.com/osmfaria/sport-facility-scheduler-backend);
+- API [documentation](https://court-scheduler.herokuapp.com/api/doc/) 
