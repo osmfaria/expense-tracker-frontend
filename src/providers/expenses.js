@@ -39,10 +39,14 @@ export const ExpenseProvider = ({ children }) => {
 
   const getExpenses = async (userId, year) => {
     setIsLoading(true)
-    await Api.get(`/expenses/${userId}/${year}`)
-      .then((res) => setExpenses(res.data))
+    const response = await Api.get(`/expenses/${userId}/${year}`)
+      .then((res) => {
+        setExpenses(res.data)
+        return res.data
+      })
       .catch((_) => toast.error('Something went wrong... Try again later'))
       .finally(() => setIsLoading(false))
+    return response
   }
 
   const getExpensesByWeek = async (userId, year) => {
@@ -76,13 +80,18 @@ export const ExpenseProvider = ({ children }) => {
 
   const updateExpense = async (expenseId, data) => {
     setIsLoading(true)
-    await Api.patch(`/expenses/${expenseId}`, data)
-      .then((_) => toast.success('Expense updated'))
+    const response = await Api.patch(`/expenses/${expenseId}`, data)
+      .then((res) => {
+        toast.success('Expense updated')
+        return res
+      })
       .catch((_) => toast.error('Something went wrong... Try again later'))
       .finally(() => setIsLoading(false))
+
+    return response
   }
 
-  const onExpenseCreation = async (userId, expenseYear, activeYear) => {
+  const onExpenseChange = async (userId, expenseYear, activeYear) => {
     getYearsWithExpenses(userId)
     if (expenseYear == activeYear || !activeYear) {
       getExpensesByWeek(userId, expenseYear)
@@ -113,7 +122,7 @@ export const ExpenseProvider = ({ children }) => {
         isLoading,
         view,
         handleView,
-        onExpenseCreation,
+        onExpenseChange,
         onExpenseDelete,
         setExpenses,
         activeYear,
