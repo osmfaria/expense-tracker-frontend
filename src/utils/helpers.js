@@ -1,6 +1,9 @@
 import dayjs from 'dayjs'
 
-export const formatDate = (date) => dayjs(date).format('YYYY/MM/DD')
+export const formatDate = (date) => {
+  const dateString = date.slice(0, 10)
+  return dayjs(dateString).format('YYYY/MM/DD')
+}
 
 export const formateCurrency = (value) =>
   Number(value).toLocaleString('en-Us', {
