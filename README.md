@@ -14,6 +14,7 @@ This app is a practical tool for managing expenses, designed with Next.js and Ma
 ## 📋 Instalation guide
 
 - Clone this repo;
+- On the root folder run `npm inastall`;
 - On the root folder execute `npm run dev`;
 - Check the applicaton running on `http://localhost:3000/`
 
