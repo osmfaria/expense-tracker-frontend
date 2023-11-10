@@ -37,7 +37,7 @@ const Navbar = () => {
             Expense Tracker
           </Typography>
           {size === 'small' ? (
-            <IconButton color='primary'>
+            <IconButton color='primary' onClick={handleModal}>
               <PersonAdd />
             </IconButton>
           ) : (
